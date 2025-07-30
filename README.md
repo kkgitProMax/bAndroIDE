@@ -24,6 +24,14 @@ see all [ide-gradle-plugin](https://repo.maven.apache.org/maven2/com/itsaky/andr
 # Changelog : [#3](https://github.com/kkgit2008/apkxxxAndroidIDE/pull/3)
 
 
+<br> </br>
+
+
+# 🔥forked from [AndroidIDEOfficial/AndroidIDE](https://github.com/AndroidIDEOfficial/AndroidIDE) 
+
+
+<br> </br>
+<br> </br>
 
 
 
