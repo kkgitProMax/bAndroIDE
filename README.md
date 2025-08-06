@@ -11,25 +11,23 @@
 
 <p> </p>
 
-**
-see all [SNAPSHOTS](https://s01.oss.sonatype.org/content/repositories/snapshots/com/itsaky/androidide/gradle-plugin/maven-metadata.xml)
+> see all [SNAPSHOTS](https://s01.oss.sonatype.org/content/repositories/snapshots/com/itsaky/androidide/gradle-plugin/maven-metadata.xml)
 
 <p> </p>
 
-**
-see all [ide-gradle-plugin](https://repo.maven.apache.org/maven2/com/itsaky/androidide/gradle-plugin/maven-metadata.xml)
+> see all [ide-gradle-plugin](https://repo.maven.apache.org/maven2/com/itsaky/androidide/gradle-plugin/maven-metadata.xml)
 
 <br> </br>
 
-# [Changelogs](https://github.com/kkgit2008/apkxxxAndroidIDE/pulls?q=is%3Apr+is%3Aclosed)
+# CHANGELOG
 
+* [All changelogs](https://github.com/kkgit2008/apkxxxAndroidIDE/pulls?q=is%3Apr+is%3Aclosed)
 
 <br> </br>
 
+# 🔥NOTICE
 
-## 
-## 🔥forked from [AndroidIDEOfficial/AndroidIDE](https://github.com/AndroidIDEOfficial/AndroidIDE) 
-## 
+* Forked from [AndroidIDEOfficial/AndroidIDE](https://github.com/AndroidIDEOfficial/AndroidIDE) 
 
 <br> </br>
 <br> </br>
@@ -180,3 +178,4 @@ along with AndroidIDE.  If not, see <https://www.gnu.org/licenses/>.
 
 Any violations to the license can be reported either by opening an issue or writing a mail to us
 directly.
+
