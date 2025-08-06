@@ -21,7 +21,7 @@ see all [ide-gradle-plugin](https://repo.maven.apache.org/maven2/com/itsaky/andr
 
 <br> </br>
 
-# Changelog : [#3](https://github.com/kkgit2008/apkxxxAndroidIDE/pull/3)
+# [Changelogs](https://github.com/kkgit2008/apkxxxAndroidIDE/pulls?q=is%3Apr+is%3Aclosed)
 
 
 <br> </br>
