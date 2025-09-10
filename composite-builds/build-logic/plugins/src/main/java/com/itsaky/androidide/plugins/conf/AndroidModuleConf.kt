@@ -40,10 +40,12 @@ import org.gradle.api.provider.Provider
  * and set as the version code of that flavor.
  *
  * For example, if the base version code of the IDE is 270 (for v2.7.0), then for arm64-v8a
- * flavor, the version code will be `100 * 270 + 1` i.e. `27001`
+ * flavor, the version code will be `100 * 270 + 2` i.e. `27002`
  */
+
+////The "mapIndex" affects the version code of apk.
 //internal val flavorsAbis = mapOf("armeabi-v7a" to 1, "arm64-v8a" to 2, "x86_64" to 3)
-internal val flavorsAbis = mapOf("arm64-v8a" to 1)
+internal val flavorsAbis = mapOf("arm64-v8a" to 2)
 
 fun Project.configureAndroidModule(
   coreLibDesugDep: Provider<MinimalExternalModuleDependency>
