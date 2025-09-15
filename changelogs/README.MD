@@ -10,9 +10,7 @@
 
 6. 点击下面的视频查看具体操作:
    - See more below (Dare you click the button before this release):
-   - [I'm video, you'd better play me in a browser](
-
-https://github.com/user-attachments/assets/c8b54c68-3f0f-4629-9b6b-d902e259216)
+   - [I'm video, you'd better play me in a browser](https://github.com/user-attachments/assets/c8b54c68-3f0f-4629-9b6b-d902e259216)
 
 5. 显示所有动作菜单，动作菜单不会再跳来跳去导致误点
    - All action menus are now displayed and will no longer jump around, preventing accidental clicks
