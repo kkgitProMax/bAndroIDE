@@ -2,7 +2,7 @@ name: Build and test
 
 on:
   push:
-#    branches: [ "dev", "main", "indexing", "release/**" ]
+    branches: [ "master", "main", "release/**" ]
     paths-ignore:
       - '**.md'
       - 'RELEASE_INFO'
