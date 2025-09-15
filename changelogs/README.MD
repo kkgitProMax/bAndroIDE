@@ -26,3 +26,14 @@
 
 1. 首次安装时可跳过强制授权，只需点击三次 “下一步”
    - Can skip mandatory permissions during first installation by clicking the "Next" button three times
+
+
+# What's Changed：
+- This release has fixed the issue that caused crashes (with a relatively high occurrence probability) [#13](https://github.com/kkgit2008/apkxxxAndroidIDE/discussions/13)
+- See more (Dare you click the button before this release): 
+
+https://github.com/user-attachments/assets/c8b54c68-3f0f-4629-9b6b-d902e2592169
+
+
+# FullChangelog: 
+* https://github.com/kkgit2008/apkxxxAndroidIDE/compare/2.7.1-beta6...v2.7.1-beta7
