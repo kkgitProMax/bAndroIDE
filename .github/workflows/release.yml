@@ -1,4 +1,4 @@
-name: Release Upload
+name: Upload Release
 
 on:
 #  push:
@@ -62,10 +62,11 @@ jobs:
           fi
 
           ### 提取标题
-          TITLE=$(grep '^TITLE=' $TEMP_FILE | cut -d'=' -f2-)
           if [ -z "$TITLE" ]; then
-            echo "TITLE not specified in RELEASE_INFO"
-            exit 1
+            TITLE="${TAG_NAME} ${{ steps.set_sha.outputs.short_sha }}"
+          else
+            ### 去除首尾空格
+            TITLE=$(echo "$TITLE" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
           fi
 
           ### 提取目标分支
@@ -134,7 +135,7 @@ jobs:
       - name: Create and push tag
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
-          TAG="v${{ steps.release_info.outputs.tag_name }}"
+          TAG="${{ steps.release_info.outputs.tag_name }}"
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git tag -a $TAG -m "${{ steps.release_info.outputs.title }}"
@@ -214,10 +215,12 @@ jobs:
           name: ${{ steps.release_info.outputs.title }}
           body: ${{ steps.release_info.outputs.notes }}
           files: ${{ env.ARTIFACT_DIR }}/*
-          ### 直接公开，而不是保存为草稿
+          ### 是否直接公开，而不是保存为草稿
           draft: false
+          ### 是否设置为预发布版本
           prerelease: ${{ steps.release_info.outputs.prerelease }}
           ### 只有非预发布版本才设置为latest
           make_latest: ${{ steps.release_info.outputs.prerelease == 'false' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

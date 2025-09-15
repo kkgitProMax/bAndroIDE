@@ -1,8 +1,8 @@
-# 版本号（必填）
+# 发布标签（必填）
 TAG_NAME=2.7.1-beta7
 
-# 发布标题（必填）
-TITLE=2.7.1-beta7 shortSHA
+# 发布标题（可选，默认值为"TAG_NAME shortSHA"）
+# TITLE=2.7.1-beta7 shortSHA
 
 # 目标分支（必填）
 BRANCH=main
