@@ -69,3 +69,9 @@ fun ActionItem.markInvisible() {
   //visible = false
   enabled = false
 }
+
+//new
+fun ActionItem.markVisible() {
+  //visible = true
+  enabled = true
+}
