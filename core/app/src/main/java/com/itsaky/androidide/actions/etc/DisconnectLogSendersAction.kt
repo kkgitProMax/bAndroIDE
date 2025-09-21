@@ -42,7 +42,7 @@ class DisconnectLogSendersAction(context: Context, override val order: Int) : Ed
   override fun prepare(data: ActionData) {
     super.prepare(data)
     data.getActivity() ?: run {
-      markInvisible()
+      //markInvisible()
       return
     }
 
