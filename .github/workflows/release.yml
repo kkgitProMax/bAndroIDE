@@ -200,13 +200,18 @@ jobs:
           fi
           echo ">>APK size: $(du -h ${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE1 }})"
 
-      - name: Prepare release artifacts
+      - name: Prepare artifacts-APK
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
           mkdir -p ${{ env.ARTIFACT_DIR }}
           cp ${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE1 }} ${{ env.ARTIFACT_DIR }}/${{ steps.set_sha.outputs.short_sha }}-${{ env.APK_OUTPUT_FILE2 }}
-          sha256sum ${{ env.ARTIFACT_DIR }}/${{ steps.set_sha.outputs.short_sha }}-${{ env.APK_OUTPUT_FILE1 }} > ${{ env.ARTIFACT_DIR }}/${{ steps.set_sha.outputs.short_sha }}-${{ env.APK_OUTPUT_FILE2 }}.sha256
+
+      - name: Prepare artifacts-sha256
+        if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
+        run: |
+          sha256sum ${{ env.ARTIFACT_DIR }}/${{ steps.set_sha.outputs.short_sha }}-${{ env.APK_OUTPUT_FILE2 }} > ${{ env.ARTIFACT_DIR }}/${{ steps.set_sha.outputs.short_sha }}-${{ env.APK_OUTPUT_FILE2 }}.sha256
           ls -la ${{ env.ARTIFACT_DIR }}
+
 
       - name: Create GitHub Release
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
