@@ -99,7 +99,7 @@ jobs:
       - name: Upload arm64-v8a ${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
         with:
-          name: apk-arm64-v8a-${{ matrix.build_type }}-${{ steps.set_sha.outputs.short_sha }}
+          name: AndroIDE-arm64-v8a-${{ matrix.build_type }}-${{ steps.set_sha.outputs.short_sha }}
           path: app-arm64-v8a-${{ matrix.build_type }}.apk
       
 #      - name: Upload armeabi-v7a ${{ matrix.build_type }} APK
