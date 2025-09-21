@@ -50,6 +50,9 @@ class DisconnectLogSendersAction(context: Context, override val order: Int) : Ed
     if (receiverService == null) {
       markInvisible()
       return
+    } else {
+      markVisible()
+      return
     }
   }
 
