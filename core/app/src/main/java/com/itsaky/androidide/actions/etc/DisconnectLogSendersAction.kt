@@ -23,6 +23,7 @@ import com.itsaky.androidide.R
 import com.itsaky.androidide.actions.ActionData
 import com.itsaky.androidide.actions.EditorActivityAction
 import com.itsaky.androidide.actions.markInvisible
+import com.itsaky.androidide.actions.markVisible
 import com.itsaky.androidide.services.log.lookupLogService
 
 /**
