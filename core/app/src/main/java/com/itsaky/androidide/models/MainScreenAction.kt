@@ -45,7 +45,7 @@ constructor(
     const val ACTION_CLONE_REPO = 2
     const val ACTION_OPEN_TERMINAL = 3
     const val ACTION_PREFERENCES = 4
-    const val ACTION_DONATE = 5
+    //const val ACTION_DONATE = 5
     const val ACTION_DOCS = 6
     
     const val ACTION_EXIT = 7
@@ -81,11 +81,11 @@ constructor(
           R.string.msg_preferences,
           R.drawable.ic_settings)
 
-        val donate = MainScreenAction(
-          ACTION_DONATE,
-          R.string.btn_donate,
-          R.drawable.ic_heart
-        )
+//         val donate = MainScreenAction(
+//           ACTION_DONATE,
+//           R.string.btn_donate,
+//           R.drawable.ic_heart
+//         )
 
         val docs = MainScreenAction(
           ACTION_DOCS,
@@ -103,7 +103,7 @@ constructor(
           cloneGitRepository,
           openTerminal,
           preferences,
-          donate,
+//          donate,
           docs,
           exit
         )
