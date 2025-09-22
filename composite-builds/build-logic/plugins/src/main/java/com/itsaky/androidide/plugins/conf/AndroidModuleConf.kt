@@ -143,22 +143,18 @@ fun Project.configureAndroidModule(
 
       extensions.getByType(ApplicationAndroidComponentsExtension::class.java).apply {
         onVariants { variant ->
-          // get the only output (AGP 8.5 defaults to single output)
-          val output = variant.outputs.single()
+          variant.outputs.forEach { output ->
+            // get abi info
+            val abi = output.getFilter(FilterConfiguration.FilterType.ABI)?.identifier
+                ?: throw UnsupportedOperationException("Universal APKs are not supported!")
 
-          // get abi info
-          val abi = output.getFilter(FilterConfiguration.FilterType.ABI)?.identifier
-            ?: throw UnsupportedOperationException("Universal APKs are not supported!")
+            // get version code increment
+            val verCodeIncr = flavorsAbis[abi]
+                ?: throw UnsupportedOperationException("Unknown ABI: $abi")
 
-          // get version code increment
-          val verCodeIncr = flavorsAbis[abi]
-            ?: throw UnsupportedOperationException("Unknown ABI: $abi")
-
-          // set version code
-          output.versionCode.set(100 * projectVersionCode + verCodeIncr)
-
-          // set output file name, include abi and build type
-          output.outputFileName.set("AndroIDE_${abi}_${variant.buildType}.apk")
+            // set version code
+            output.versionCode.set(100 * projectVersionCode + verCodeIncr)
+          }
         }
       }
     } else {
