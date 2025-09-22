@@ -60,8 +60,7 @@ object BuildInfoUtils {
 
   private fun getBuildType() = getBuildType(IDEApplication.instance)
 
-  //fun getBuildType(context: Context) = if (isOfficialBuild(context)) "OFFICIAL" else "UNOFFICIAL"
-  fun getBuildType(context: Context) = "kkgit2008"
+  fun getBuildType(context: Context) = if (isOfficialBuild(context)) "kkgit2008" else "UNOFFICIAL"
 
   /**
    * Whether the AndroidIDE build is official or not. This checks the signature digest of the
@@ -69,14 +68,15 @@ object BuildInfoUtils {
    */
   @JvmStatic
   fun isOfficialBuild(context: Context): Boolean {
-    val sha256DigestForPackage = PackageUtils.getSigningCertificateSHA256DigestForPackage(
-      context,
-      TermuxConstants.TERMUX_PACKAGE_NAME
-    )
-
-    val signer = TermuxUtils.getAPKRelease(sha256DigestForPackage)
-
-    return TermuxConstants.APK_RELEASE_ANDROIDIDE == signer
-        || TermuxConstants.APK_RELEASE_FDROID == signer
+//     val sha256DigestForPackage = PackageUtils.getSigningCertificateSHA256DigestForPackage(
+//       context,
+//       TermuxConstants.TERMUX_PACKAGE_NAME
+//     )
+// 
+//     val signer = TermuxUtils.getAPKRelease(sha256DigestForPackage)
+// 
+//     return TermuxConstants.APK_RELEASE_ANDROIDIDE == signer
+//         || TermuxConstants.APK_RELEASE_FDROID == signer
+    return true
   }
 }
