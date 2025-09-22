@@ -27,7 +27,7 @@
 
 # CHANGELOG
 
-* [All changelogs](https://github.com/kkgit2008/apkxxxAndroidIDE/pulls?q=is%3Apr+is%3Aclosed)
+* [All changelogs](./RELEASE_INFO)
 
 
 <p> </p>
