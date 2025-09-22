@@ -1,7 +1,7 @@
-name: Upload Beta Pre Release
+name: 暂禁用-Upload Beta Pre Release
 
 on:
-  workflow_dispatch: {}
+  ######workflow_dispatch: {}
   ### 仅手动触发
 
 env:
