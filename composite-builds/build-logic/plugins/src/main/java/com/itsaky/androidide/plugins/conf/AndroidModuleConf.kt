@@ -144,14 +144,20 @@ fun Project.configureAndroidModule(
       extensions.getByType(ApplicationAndroidComponentsExtension::class.java).apply {
         onVariants { variant ->
           variant.outputs.forEach { output ->
-
-            // version code increment
-            val verCodeIncr = flavorsAbis[output.getFilter(
-              FilterConfiguration.FilterType.ABI
-            )?.identifier]
-              ?: throw UnsupportedOperationException("Universal APKs are not supported!")
-
+            // 获取ABI信息
+            val abi = output.getFilter(FilterConfiguration.FilterType.ABI)?.identifier
+                ?: throw UnsupportedOperationException("Universal APKs are not supported!")
+            
+            // 获取版本号增量
+            val verCodeIncr = flavorsAbis[abi]
+                ?: throw UnsupportedOperationException("Unknown ABI: $abi")
+            
+            // 设置版本号
             output.versionCode.set(100 * projectVersionCode + verCodeIncr)
+            
+            // 设置输出文件名，包含ABI、构建类型
+            val fileName = "AndroIDE_${abi}_${variant.buildType.name}.apk"
+            output.outputFileName.set(fileName)
           }
         }
       }
