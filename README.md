@@ -114,7 +114,7 @@
 
 > _Please install AndroidIDE from trusted sources only i.e._
 > - [_GitHub Releases_](https://github.com/kkgit2008/apkxxxAndroIDE/releases)
-> - [_The AndroidIDE website_](https://androidide.com)
+> - [_Documents_](https://androidide.com)
 
 
 
