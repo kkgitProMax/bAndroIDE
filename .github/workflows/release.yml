@@ -126,7 +126,7 @@ jobs:
       - name: Check If Tag Exists
         id: check_tag
         run: |
-          TAG="v${{ steps.release_info.outputs.tag_name }}"
+          TAG="${{ steps.release_info.outputs.tag_name }}"
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             echo "tag_exists=true" >> $GITHUB_OUTPUT
             echo "Tag $TAG already exists"
@@ -210,7 +210,7 @@ jobs:
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: "v${{ steps.release_info.outputs.tag_name }}"
+          tag_name: "${{ steps.release_info.outputs.tag_name }}"
           name: ${{ steps.release_info.outputs.title }}
           body: ${{ steps.release_info.outputs.notes }}
           files: ${{ env.ARTIFACT_DIR }}/*
