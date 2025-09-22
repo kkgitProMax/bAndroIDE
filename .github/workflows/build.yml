@@ -45,15 +45,15 @@ env:
 
   # Output configuration
   DefaultAPK_Output_Path: './core/app/build/outputs/apk'
-  Artifact_Output_Path: './Output_Artifact'
 
 jobs:
   build_apk:
     strategy:
       matrix:
-        abi_type: ['arm64-v8a', 'armeabi-v7a', 'x86_64']
-        build_type: ['debug', 'release']
-        # build_type: ['debug']
+        abi_type: ['arm64-v8a']
+        build_type: ['debug']
+        # abi_type: ['arm64-v8a', 'armeabi-v7a', 'x86_64']
+        # build_type: ['debug', 'release']
     name: Build APK
     runs-on: ubuntu-latest
     steps:
@@ -98,20 +98,15 @@ jobs:
           ./gradlew :core:app:assemble${build_type^}
 
       - name: Show APK paths
-        if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
             echo ">>APK:"
             ls -la ${{ env.DefaultAPK_Output_Path }}
-
-      - name: Copy ${{ matrix.build_type }} APK
-        run: |
-          cp ${{ env.DefaultAPK_Output_Path }}/${{ matrix.build_type }}/**.apk ${{ env.Artifact_Output_Path }}
       
       - name: Upload ${{ matrix.abi_type }} ${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
         with:
           name: AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}-${{ steps.set_sha.outputs.short_sha }}
-          path: ${{ env.Artifact_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
+          path: ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
       
 #      - name: Upload arm64-v8a ${{ matrix.build_type }} APK
 #        uses: actions/upload-artifact@v4
