@@ -18,8 +18,8 @@ env:
 
   APK_OUTPUT_PATH: './core/app/build/outputs/apk/release'
   ### 无后缀，方便后续步骤改名
-  APK_OUTPUT_FILE1: 'app-arm64-v8a-release'
-  APK_OUTPUT_FILE2: 'AndroIDE-arm64-v8a-release'
+  APK_OUTPUT_FILE1: 'app_arm64-v8a_release'
+  APK_OUTPUT_FILE2: 'AndroIDE_arm64-v8a_release'
 
 jobs:
   validate-and-release:
