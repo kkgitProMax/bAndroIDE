@@ -172,8 +172,9 @@ fun Project.configureAndroidModule(
             */
 
       if (output is VariantOutputImpl) {
-        val fileName = "AndroIDE_${abi}_${variant.buildType}.apk"
-        output.outputFileName.set(fileName)
+              val fileName = "AndroIDE_${abi}_${variant.buildType}.apk"
+              output.outputFileName.set(fileName)
+            }
           }
         }
       }
