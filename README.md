@@ -27,15 +27,15 @@
 
 # CHANGELOG
 
-* [All changelogs](./RELEASE_INFO)
+- [All changelogs](./RELEASE_INFO)
 
 
 <p> </p>
 
 # Download JDK & SDK & NDK from here:
-## [JDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/JDK)
-## [SDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/SDK)
-## [NDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/NDK)
+- [JDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/JDK)
+- [SDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/SDK)
+- [NDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/NDK)
 
 
 <p> </p>
