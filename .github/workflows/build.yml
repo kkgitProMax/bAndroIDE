@@ -102,7 +102,7 @@ jobs:
       - name: Upload ${{ matrix.abi_type }} ${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
         with:
-          name: AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}-${{ steps.set_sha.outputs.short_sha }}
+          name: AndroIDE_${{ matrix.abi_type }}_${{ matrix.build_type }}_${{ steps.set_sha.outputs.short_sha }}
           path: |
             ${{ env.Artifact_Output_Path }}/AndroIDE_${{ matrix.abi_type }}_${{ matrix.build_type }}.apk
 
