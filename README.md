@@ -14,7 +14,7 @@
 <a href="./composite-builds/build-logic/plugins/src/main/java/com/itsaky/androidide/plugins/conf/AndroidModuleConf.kt"> here </a> at line 48
 
 
-<br> </br>
+<p> </p>
 
 > see all [SNAPSHOTS](https://s01.oss.sonatype.org/content/repositories/snapshots/com/itsaky/androidide/gradle-plugin/maven-metadata.xml)
 
