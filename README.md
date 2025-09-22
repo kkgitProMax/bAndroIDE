@@ -13,9 +13,8 @@
 * Or, to build all architectures from 
 <a href="./composite-builds/build-logic/plugins/src/main/java/com/itsaky/androidide/plugins/conf/AndroidModuleConf.kt"> here </a> at line 48
 
-<br> </br>
 
-<p> </p>
+<br> </br>
 
 > see all [SNAPSHOTS](https://s01.oss.sonatype.org/content/repositories/snapshots/com/itsaky/androidide/gradle-plugin/maven-metadata.xml)
 
@@ -23,25 +22,27 @@
 
 > see all [ide-gradle-plugin](https://repo.maven.apache.org/maven2/com/itsaky/androidide/gradle-plugin/maven-metadata.xml)
 
-<br> </br>
+
+<p> </p>
 
 # CHANGELOG
 
 * [All changelogs](https://github.com/kkgit2008/apkxxxAndroidIDE/pulls?q=is%3Apr+is%3Aclosed)
 
-<br> </br>
+
+<p> </p>
 
 # Download JDK & SDK & NDK from here:
 ## [JDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/JDK)
 ## [SDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/SDK)
 ## [NDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/NDK)
 
-<br> </br>
+
+<p> </p>
 
 # 🔥NOTICE
 
 * Forked from [AndroidIDEOfficial/AndroidIDE](https://github.com/AndroidIDEOfficial/AndroidIDE) 
-
 
 
 <br> </br>
