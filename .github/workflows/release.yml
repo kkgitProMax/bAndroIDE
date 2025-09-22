@@ -150,7 +150,7 @@ jobs:
           git fetch --tags
 
       ### 以下步骤添加了条件判断，只有当tag不存在时才执行
-      - name: Set up JDK 17
+      - name: Set Up JDK 17
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         uses: actions/setup-java@v4
         with:
@@ -194,15 +194,6 @@ jobs:
             echo ">>APK path and sub:"
             ls -laR ${{ env.APK_OUTPUT_PATH }}
 
-      - name: Verify APK exists
-        if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
-        run: |
-          if [ ! -f "${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE1 }}.apk" ]; then
-            echo ">>APK file not found at ${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE1 }}.apk"
-            exit 1
-          fi
-          echo ">>APK file size: $(du -h ${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE1 }}.apk)"
-
       - name: Prepare Artifacts-APK
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
@@ -213,8 +204,7 @@ jobs:
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
           sha256sum ${{ env.ARTIFACT_DIR }}/${{ env.APK_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk > ${{ env.ARTIFACT_DIR }}/${{ env.APK_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk.sha256
-          ls -la ${{ env.ARTIFACT_DIR }}
-
+          ls -laR ${{ env.ARTIFACT_DIR }}
 
       - name: Create GitHub Release
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
