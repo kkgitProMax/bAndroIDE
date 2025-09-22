@@ -18,8 +18,8 @@ env:
 
   APK_OUTPUT_PATH: './core/app/build/outputs/apk/release'
   ### 无后缀，方便后续步骤改名
-  APK_OUTPUT_FILE1: 'app_arm64-v8a_release'
-  APK_OUTPUT_FILE2: 'AndroIDE_arm64-v8a_release'
+  DEFAULT_OUTPUT_FILE1: 'app-arm64-v8a-release'
+  RENAME_OUTPUT_FILE2: 'AndroIDE_arm64-v8a_release'
 
 jobs:
   validate-and-release:
@@ -198,12 +198,12 @@ jobs:
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
           mkdir -p ${{ env.ARTIFACT_DIR }}
-          cp ${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE1 }}.apk ${{ env.ARTIFACT_DIR }}/${{ env.APK_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk
+          cp ${{ env.APK_OUTPUT_PATH }}/${{ env.DEFAULT_OUTPUT_FILE1 }}.apk ${{ env.ARTIFACT_DIR }}/${{ env.RENAME_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk
 
       - name: Prepare Artifacts-SHA256
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
-          sha256sum ${{ env.ARTIFACT_DIR }}/${{ env.APK_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk > ${{ env.ARTIFACT_DIR }}/${{ env.APK_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk.sha256
+          sha256sum ${{ env.ARTIFACT_DIR }}/${{ env.RENAME_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk > ${{ env.ARTIFACT_DIR }}/${{ env.RENAME_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk.sha256
           ls -laR ${{ env.ARTIFACT_DIR }}
 
       - name: Create GitHub Release
