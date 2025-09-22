@@ -100,8 +100,8 @@ jobs:
         run: |
           sha256sum ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk > ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk.sha256
           ls -la ${{ env.ARTIFACT_DIR }}
-            echo ">>Output path:"
-            ls -la ${{ env.DefaultAPK_Output_Path }}
+          echo ">>Output path:"
+          ls -la ${{ env.DefaultAPK_Output_Path }}
       
       - name: Upload ${{ matrix.abi_type }} ${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
