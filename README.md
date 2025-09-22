@@ -113,7 +113,7 @@
 
 ## Installation
 
-> _Please install AndroidIDE from trusted sources only i.e._
+> _Please install AndroIDE from trusted sources only i.e._
 > - [_GitHub Releases_](https://github.com/kkgit2008/apkxxxAndroIDE/releases)
 > - [_Documents_](https://androidide.com)
 
@@ -121,7 +121,7 @@
 
 ## Limitations
 
-- For working with projects in AndroidIDE, your project must use Android Gradle Plugin v7.2.0 or
+- For working with projects in AndroIDE, your project must use Android Gradle Plugin v7.2.0 or
   newer. Projects with older AGP must be migrated to newer versions.
 - SDK Manager is already included in Android SDK and is accessible in AndroidIDE via its Terminal.
   But, you cannot use it to install some tools (like NDK) because those tools are not built for
