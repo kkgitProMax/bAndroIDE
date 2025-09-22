@@ -156,10 +156,10 @@ Thanks to all the developers who have contributed to this project.
   </a>
 </p>
 
-## Contact Us
+## Documents & Help
 
 - [Website](https://m.androidide.com)
-- [Telegram](https://t.me/androidide_discussions)
+
 
 ## License
 
