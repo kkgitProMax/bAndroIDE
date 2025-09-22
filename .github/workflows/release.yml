@@ -13,13 +13,13 @@ env:
   BUILD_JAVA_VERSION: '17'
   BUILD_JAVA_DIST: 'adopt'
 
-  ARTIFACT_DIR: ./release-artifacts
-  INFO_FILE: ./RELEASE_INFO
+  ARTIFACT_DIR: "./release-artifacts"
+  INFO_FILE: "./RELEASE_INFO"
 
-  APK_OUTPUT_PATH: ./core/app/build/outputs/apk/release
+  APK_OUTPUT_PATH: "./core/app/build/outputs/apk/release"
   ### 无后缀，方便后续步骤改名
-  APK_OUTPUT_FILE1: app-arm64-v8a-release
-  APK_OUTPUT_FILE2: AndroIDE-arm64-v8a-release
+  APK_OUTPUT_FILE1: "app-arm64-v8a-release"
+  APK_OUTPUT_FILE2: "AndroIDE-arm64-v8a-release"
 
 jobs:
   validate-and-release:
