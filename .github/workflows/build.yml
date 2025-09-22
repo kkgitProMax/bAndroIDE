@@ -51,7 +51,7 @@ jobs:
     strategy:
       matrix:
         abi_type: ['arm64-v8a']
-        build_type: ['debug']
+        build_type: ['release']
         # abi_type: ['arm64-v8a', 'armeabi-v7a', 'x86_64']
         # build_type: ['debug', 'release']
     name: Build APK
