@@ -40,8 +40,7 @@ env:
   # Build configuration
   BUILD_JAVA_VERSION: '17'
   BUILD_JAVA_DIST: 'adopt'
-  BUILD_IS_RELEASE: true
-  ReleaseAndroidIDE: true
+  ReleaseAndroIDE: true
 
   # Output configuration
   DefaultAPK_Output_Path: './core/app/build/outputs/apk'
