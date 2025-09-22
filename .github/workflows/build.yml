@@ -1,20 +1,13 @@
-name: Build And Test
+name: Build APK
 
 on:
 #  push:
-#    branches: [ "master", "main", "release/**" ]
+#    branches: [ "master", "main" ]
 #    paths-ignore:
 #      - '**.md'
 #      - 'RELEASE_INFO'
 #      - 'fastlane/**'
 #      - '.github/workflows/*.yml'
-#  pull_request:
-#    branches: [ "main" ]
-#    paths-ignore:
-#      - '**.md'
-#      - 'RELEASE_INFO'
-#      - 'fastlane/**'
-#      - '.github/workflows/crowdin_contributors.yml'
   workflow_dispatch: { }
 
 env:
@@ -102,7 +95,7 @@ jobs:
           echo ">>DefaultAPK_Output_Path and sub:"
           ls -laR ${{ env.DefaultAPK_Output_Path }}
           mkdir -p ${{ env.Artifact_Output_Path }}
-          cp -r ${{ env.DefaultAPK_Output_Path }}/${{ matrix.build_type }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk ${{ env.Artifact_Output_Path }}/AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
+          cp -r ${{ env.DefaultAPK_Output_Path }}/${{ matrix.build_type }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk ${{ env.Artifact_Output_Path }}/AndroIDE_${{ matrix.abi_type }}_${{ matrix.build_type }}.apk
           echo ">>Artifact_Output_Path and sub:"
           ls -laR ${{ env.Artifact_Output_Path }}
       
@@ -111,7 +104,7 @@ jobs:
         with:
           name: AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}-${{ steps.set_sha.outputs.short_sha }}
           path: |
-            ${{ env.Artifact_Output_Path }}/AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
+            ${{ env.Artifact_Output_Path }}/AndroIDE_${{ matrix.abi_type }}_${{ matrix.build_type }}.apk
 
       - name: Upload ${{ matrix.build_type }} Mappings
         if: ${{ always() && matrix.build_type == 'release' }}
