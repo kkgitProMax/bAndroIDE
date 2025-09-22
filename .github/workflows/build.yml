@@ -99,9 +99,10 @@ jobs:
 
       - name: Copy APK And Show Output Path
         run: |
+          echo ">>DefaultAPK_Output_Path and sub:"
           ls -laR ${{ env.DefaultAPK_Output_Path }}
-          cp -r ${{ env.DefaultAPK_Output_Path }}/${{ matrix.build_type }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk > ${{ env.Artifact_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
-          echo ">>Output path:"
+          cp -r ${{ env.DefaultAPK_Output_Path }}/${{ matrix.build_type }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk ${{ env.Artifact_Output_Path }}/AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
+          echo ">>Artifact_Output_Path and sub:"
           ls -laR ${{ env.Artifact_Output_Path }}
       
       - name: Upload ${{ matrix.abi_type }} ${{ matrix.build_type }} APK
@@ -109,7 +110,7 @@ jobs:
         with:
           name: AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}-${{ steps.set_sha.outputs.short_sha }}
           path: |
-            ${{ env.Artifact_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
+            ${{ env.Artifact_Output_Path }}/AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
       
 #      - name: Upload arm64-v8a ${{ matrix.build_type }} APK
 #        uses: actions/upload-artifact@v4
