@@ -101,6 +101,7 @@ jobs:
         run: |
           echo ">>DefaultAPK_Output_Path and sub:"
           ls -laR ${{ env.DefaultAPK_Output_Path }}
+          mkdir -p ${{ env.Artifact_Output_Path }}
           cp -r ${{ env.DefaultAPK_Output_Path }}/${{ matrix.build_type }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk ${{ env.Artifact_Output_Path }}/AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
           echo ">>Artifact_Output_Path and sub:"
           ls -laR ${{ env.Artifact_Output_Path }}
