@@ -1,5 +1,5 @@
 # 发布标签（必填）
-TAG_NAME=v2.7.1-beta3
+TAG_NAME=v2.7.1-beta2
 
 # 发布标题（可选，默认值为"TAG_NAME shortSHA"）
 # TITLE=v2.7.1-beta1 shortSHA
@@ -16,8 +16,8 @@ NOTES=
 - 8.修复了“断开日志发送器”经常无法点击的问题(如果还是无法点击或者logsender页面不再输出日志，需重启IDE，这不是漏洞)
    - Nothing here.
 
-- 7.修复了一个出现概率非常高的引起崩溃的漏洞 [#13](https://github.com/kkgit2008/apkxxxAndroidIDE/discussions/13)
-   - Fixed a high-probability crash bug [#13](https://github.com/kkgit2008/apkxxxAndroidIDE/discussions/13)
+- 7.修复了一个出现概率非常高的引起崩溃的漏洞 [#13](https://github.com/kkgit2008/AndroIDE/discussions/13)
+   - Fixed a high-probability crash bug [#13](https://github.com/kkgit2008/AndroIDE/discussions/13)
 
 - 6.点击下面的视频查看具体操作:
    - See more below (Dare you click the button before this release):
@@ -27,8 +27,8 @@ https://github.com/user-attachments/assets/c8b54c68-3f0f-4629-9b6b-d902e2592169
 - 5.显示所有动作菜单，动作菜单不会再跳来跳去导致误点
    - All action menus are now displayed and will no longer jump around, preventing accidental clicks
 
-- 4.修复了一个引起程序崩溃的漏洞 (来自 DesignerTextureView) [#5](https://github.com/kkgit2008/apkxxxAndroidIDE/discussions/5)
-   - Fixed a crash bug (from DesignerTextureView) [#5](https://github.com/kkgit2008/apkxxxAndroidIDE/discussions/5)
+- 4.修复了一个引起程序崩溃的漏洞 (来自 DesignerTextureView) [#5](https://github.com/kkgit2008/AndroIDE/discussions/5)
+   - Fixed a crash bug (from DesignerTextureView) [#5](https://github.com/kkgit2008/AndroIDE/discussions/5)
 
 - 3.修正了主界面部分英文未翻译的问题。优化部分文字描述。
    - About Chinese translation
