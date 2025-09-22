@@ -42,7 +42,7 @@
 
 # 🔥NOTICE
 
-* Forked from [AndroidIDEOfficial/AndroidIDE](https://github.com/AndroidIDEOfficial/AndroidIDE) 
+* Forked from [AndroidIDEOfficial](https://github.com/AndroidIDEOfficial/AndroidIDE) 
 
 
 <br> </br>
