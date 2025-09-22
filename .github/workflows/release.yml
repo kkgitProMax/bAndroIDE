@@ -23,7 +23,7 @@ env:
 
 jobs:
   validate-and-release:
-    name: Validate and create release
+    name: Validate And Create Release
     runs-on: ubuntu-latest
     steps:
 
@@ -32,7 +32,7 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
