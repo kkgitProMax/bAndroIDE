@@ -111,6 +111,13 @@ android {
     abortOnError = false
     disable.addAll(arrayOf("VectorPath", "NestedWeights", "ContentDescription", "SmallSp"))
   }
+
+    android.applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach {
+            outputFileName = "AndroIDE_${variant.buildType.name}.apk"
+        }
+    }
+
 }
 
 kapt {
