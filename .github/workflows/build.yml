@@ -49,8 +49,9 @@ jobs:
   build_apk:
     strategy:
       matrix:
-        # build_type: ['debug', 'release']
-        build_type: ['release']
+        abi_type: ['arm64-v8a', 'armeabi-v7a', 'x86_64']
+        build_type: ['debug', 'release']
+        # build_type: ['debug']
     name: Build APK
     runs-on: ubuntu-latest
     steps:
@@ -107,8 +108,8 @@ jobs:
       - name: Upload ${{ matrix.abi_type }} ${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
         with:
-          name: AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}-${{ steps.set_sha.outputs.short_sha }}
-          path: ${{ env.Artifact_Output_Path }}/AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
+          name: AndroIDE_${{ matrix.abi_type }}_${{ matrix.build_type }}_${{ steps.set_sha.outputs.short_sha }}
+          path: ${{ env.Artifact_Output_Path }}/AndroIDE_${{ matrix.abi_type }}_${{ matrix.build_type }}.apk
       
 #      - name: Upload arm64-v8a ${{ matrix.build_type }} APK
 #        uses: actions/upload-artifact@v4
