@@ -44,6 +44,7 @@ env:
 
   # Output configuration
   DefaultAPK_Output_Path: './core/app/build/outputs/apk'
+  Artifact_Output_Path: './artifact_output'
 
 jobs:
   build_apk:
@@ -96,20 +97,19 @@ jobs:
           build_type=${{ matrix.build_type }}
           ./gradlew :core:app:assemble${build_type^}
 
-      - name: Get SHA256 And Show Output Path
+      - name: Copy APK And Show Output Path
         run: |
-          ls -la ${{ env.DefaultAPK_Output_Path }}
-          sha256sum ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk > ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk.sha256
+          ls -laR ${{ env.DefaultAPK_Output_Path }}
+          cp -r ${{ env.DefaultAPK_Output_Path }}/${{ matrix.build_type }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk > ${{ env.Artifact_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
           echo ">>Output path:"
-          ls -la ${{ env.DefaultAPK_Output_Path }}
+          ls -laR ${{ env.Artifact_Output_Path }}
       
       - name: Upload ${{ matrix.abi_type }} ${{ matrix.build_type }} APK
         uses: actions/upload-artifact@v4
         with:
           name: AndroIDE-${{ matrix.abi_type }}-${{ matrix.build_type }}-${{ steps.set_sha.outputs.short_sha }}
           path: |
-            ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
-            ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk.sha256
+            ${{ env.Artifact_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk
       
 #      - name: Upload arm64-v8a ${{ matrix.build_type }} APK
 #        uses: actions/upload-artifact@v4
