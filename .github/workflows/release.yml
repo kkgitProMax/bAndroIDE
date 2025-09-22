@@ -26,7 +26,8 @@ jobs:
     name: Validate and create release
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel previous runs
+
+      - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.12.1
         with:
           access_token: ${{ github.token }}
@@ -38,11 +39,11 @@ jobs:
           fetch-depth: 0
 
       ### 提前获取short_sha，用于替换RELEASE_INFO中的占位符
-      - name: Set short SHA
+      - name: Set Short SHA
         id: set_sha
         run: echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
-      - name: Read and process release information
+      - name: Read And Process Release Information
         id: release_info
         run: |
           ### 验证RELEASE_INFO文件存在
@@ -111,7 +112,7 @@ jobs:
           ### 清理临时文件
           rm -f $TEMP_FILE
 
-      - name: Check current branch matches target branch
+      - name: Check Current Branch Matches Target Branch
         run: |
           CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           echo "Current branch: $CURRENT_BRANCH"
@@ -122,7 +123,7 @@ jobs:
             exit 1
           fi
 
-      - name: Check if tag exists
+      - name: Check If Tag Exists
         id: check_tag
         run: |
           TAG="v${{ steps.release_info.outputs.tag_name }}"
@@ -135,7 +136,7 @@ jobs:
           fi
 
       ### 先创建并推送标签（仅当标签不存在时执行）
-      - name: Create and push tag
+      - name: Create And Push Tag
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
           TAG="${{ steps.release_info.outputs.tag_name }}"
@@ -157,11 +158,11 @@ jobs:
           distribution: ${{ env.BUILD_JAVA_DIST }}
           cache: 'gradle'
 
-      - name: Make gradlew executable
+      - name: Make Gradlew Executable
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: chmod +x ./gradlew
 
-      - name: Restore Gradle cache
+      - name: Restore Gradle Cache
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         uses: actions/cache@v4
         with:
@@ -172,7 +173,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-#      - name: Run code quality checks
+#      - name: Run Code Quality Checks
 #        if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
 #        run: ./gradlew lintRelease
 #        continue-on-error: true
@@ -187,11 +188,11 @@ jobs:
         run: ./gradlew :core:app:assembleRelease
         continue-on-error: false
 
-      - name: Show APK path
+      - name: Show APK Path
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
-            echo ">>APK path:"
-            ls -la ${{ env.APK_OUTPUT_PATH }}
+            echo ">>APK path and sub:"
+            ls -laR ${{ env.APK_OUTPUT_PATH }}
 
       - name: Verify APK exists
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
@@ -202,13 +203,13 @@ jobs:
           fi
           echo ">>APK file size: $(du -h ${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE1 }}.apk)"
 
-      - name: Prepare artifacts-APK
+      - name: Prepare Artifacts-APK
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
           mkdir -p ${{ env.ARTIFACT_DIR }}
           cp ${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE1 }}.apk ${{ env.ARTIFACT_DIR }}/${{ env.APK_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk
 
-      - name: Prepare artifacts-sha256
+      - name: Prepare Artifacts-SHA256
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
           sha256sum ${{ env.ARTIFACT_DIR }}/${{ env.APK_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk > ${{ env.ARTIFACT_DIR }}/${{ env.APK_OUTPUT_FILE2 }}_${{ steps.set_sha.outputs.short_sha }}.apk.sha256
