@@ -157,8 +157,8 @@ fun Project.configureAndroidModule(
 
             // set output file name, include abi and build type
             val fileName = "AndroIDE_${abi}_${variant.buildType}.apk"
-        	// API that AGP 8.3+ recommended
-         	variant.packaging.resources.addString("outputFileName", fileName)
+            // API that AGP 8.3+ recommended
+            variant.packaging.resources.addString("outputFileName", fileName)
           }
         }
       }
