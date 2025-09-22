@@ -22,6 +22,11 @@ import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.api.variant.FilterConfiguration
 import com.android.build.api.variant.impl.getFilter
+
+import com.android.build.api.variant.impl.VariantOutputImpl
+import com.android.build.api.variant.OutputConfiguration
+import com.android.build.api.variant.VariantOutput
+
 import com.android.build.gradle.BaseExtension
 import com.itsaky.androidide.build.config.BuildConfig
 import com.itsaky.androidide.build.config.FDroidConfig
@@ -147,17 +152,28 @@ fun Project.configureAndroidModule(
             // 获取ABI信息
             val abi = output.getFilter(FilterConfiguration.FilterType.ABI)?.identifier
                 ?: throw UnsupportedOperationException("Universal APKs are not supported!")
-            
+
             // 获取版本号增量
             val verCodeIncr = flavorsAbis[abi]
                 ?: throw UnsupportedOperationException("Unknown ABI: $abi")
-            
+
             // 设置版本号
             output.versionCode.set(100 * projectVersionCode + verCodeIncr)
-            
+
             // 设置输出文件名，包含ABI、构建类型
-            val fileName = "AndroIDE_${abi}_${variant.buildType.name}.apk"
-            output.outputFileName.set(fileName)
+
+            /**
+            * ApplicationAndroidComponentsExtension 在 AGP 8.0+ 以后把
+            * variant.outputs.forEach { output -> … output.name / output.outputFileName } 这两个 API 直接删掉了 
+            * 现在 output 的类型是 VariantOutput，它只有 versionCode、versionName 等属性，没有 name 和 outputFileName 
+
+            * AGP 8.0+ 通过 VariantOutputImpl 的 outputFileName 属性
+            * 并且需要显式强转，否则接口里看不到
+            */
+
+      if (output is VariantOutputImpl) {
+        val fileName = "AndroIDE_${abi}_${variant.buildType}.apk"
+        output.outputFileName.set(fileName)
           }
         }
       }
