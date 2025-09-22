@@ -98,8 +98,8 @@ jobs:
 
       - name: Get SHA256 And Show Output Path
         run: |
-          sha256sum ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk > ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk.sha256
           ls -la ${{ env.ARTIFACT_DIR }}
+          sha256sum ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk > ${{ env.DefaultAPK_Output_Path }}/app-${{ matrix.abi_type }}-${{ matrix.build_type }}.apk.sha256
           echo ">>Output path:"
           ls -la ${{ env.DefaultAPK_Output_Path }}
       
