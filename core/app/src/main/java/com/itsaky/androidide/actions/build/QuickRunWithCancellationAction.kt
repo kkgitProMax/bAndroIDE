@@ -170,7 +170,14 @@ class QuickRunWithCancellationAction(context: Context, override val order: Int) 
       handleResult(data, result, module, variant)
     }.invokeOnCompletion { error ->
       if (error != null) {
-        log.error("Failed to run '{}'", taskName, error)
+        //log.error("Failed to run '{}'", taskName, error)
+        log.error(
+            "Failed to run task '{}'. Error type: {}, Message: {}",
+            taskName,
+            error?.javaClass?.name ?: "Unknown error type",
+            error?.message ?: "No error message",
+            error
+        )
       }
     }
   }
