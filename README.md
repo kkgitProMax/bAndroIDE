@@ -42,7 +42,12 @@
 
 # 🔥NOTICE
 
-* Forked from [AndroidIDEOfficial](https://github.com/AndroidIDEOfficial/AndroidIDE) 
+- Max version of Android Gradle Plugin is 8.10.0
+
+
+# HELP
+
+- Forked from [AndroidIDEOfficial](https://github.com/AndroidIDEOfficial/AndroidIDE) 
 
 
 <br> </br>
