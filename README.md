@@ -96,7 +96,7 @@
 ## Features
 
 - [x] Gradle support.
-- [x] `JDK 11` and `JDK 17` available for use.
+- [x] `JDK 17` and `JDK 21` available for use.
 - [x] Terminal with necessary packages.
 - [x] Custom environment variables (for Build & Terminal).
 - [x] SDK Manager (Available via terminal).
