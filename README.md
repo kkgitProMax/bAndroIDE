@@ -42,7 +42,7 @@
 
 # 🔥NOTICE
 
-- Version of Android Gradle Plugin must between  [7.4.0] and [8.10.0]
+- Version of Android Gradle Plugin must between  `7.4.0` and `8.10.0`
 
 
 # HELP
