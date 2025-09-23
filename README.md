@@ -44,6 +44,9 @@
 
 - Version of `Android Gradle Plugin` must between  `7.4.0` and `8.10.0`
 
+- `Android API Lever` must be `34` or lower
+
+
 
 # HELP
 
