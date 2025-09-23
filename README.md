@@ -61,10 +61,10 @@
 
 
 <p align="center">
-  <img src="./images/icon.png" alt="AndroidIDE" width="80" height="80"/>
+  <a href="https://github.com/AndroidIDEOfficial/AndroidIDE"><img src="./images/icon.png" alt="AndroidIDE" width="80" height="80"/></a>
 </p>
 
-<h2 align="center"><b> [AndroidIDE](https://github.com/AndroidIDEOfficial/AndroidIDE) </b></h2>
+<h2 align="center"><b>AndroidIDE</b></h2>
 <p align="center">
   An IDE to develop real, Gradle-based Android applications on Android devices.
 <p><br>
