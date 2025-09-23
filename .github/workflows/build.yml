@@ -11,8 +11,19 @@ on:
   workflow_dispatch: { }
 
 env:
+
+  # Output configuration
+  DefaultAPK_Output_Path: './core/app/build/outputs/apk'
+  Artifact_Output_Path: './artifact_output'
+
+  # Build configuration
+  BUILD_JAVA_VERSION: '17'
+  BUILD_JAVA_DIST: 'adopt'
+  ReleaseAndroIDE: true
+
   # Misc
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
   # Signing info
   # IDE_SIGNING_ALIAS: ${{ secrets.IDE_SIGNING_ALIAS }}
@@ -29,15 +40,6 @@ env:
   # ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.MVN_SIGNING_KEY }}
   # ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.MVN_SIGNING_KEY_ID }}
   # ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.MVN_SIGNING_KEY_PASSWORD }}
-
-  # Build configuration
-  BUILD_JAVA_VERSION: '17'
-  BUILD_JAVA_DIST: 'adopt'
-  ReleaseAndroIDE: true
-
-  # Output configuration
-  DefaultAPK_Output_Path: './core/app/build/outputs/apk'
-  Artifact_Output_Path: './artifact_output'
 
 jobs:
   build_apk:
