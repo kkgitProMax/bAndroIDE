@@ -120,7 +120,7 @@
 ## Installation
 
 > _Please install AndroIDE from trusted sources only i.e._
-> - [_GitHub Releases_](https://github.com/kkgit2008/apkxxxAndroIDE/releases)
+> - [_GitHub Releases_](https://github.com/kkgit2008/AndroIDE/releases)
 > - [_Documents_](https://androidide.com)
 
 
@@ -132,7 +132,7 @@
 - SDK Manager is already included in Android SDK and is accessible in AndroidIDE via its Terminal.
   But, you cannot use it to install some tools (like `NDK`) because those tools are not built for
   Android.
-- You can install `NDK` form here: [NDK](https://github.com/kkgit2008/apkxxxAndroidIDE/releases/tag/NDK) ~~No official NDK support because we haven't built the NDK for Android.~~
+- You can install `NDK` form here: [NDK](https://github.com/kkgit2008/AndroIDE/releases/tag/NDK) ~~No official NDK support because we haven't built the NDK for Android.~~
 
 The app is still being developed actively. It's in beta stage and may not be stable. if you have any
 issues using the app, please let us know.
