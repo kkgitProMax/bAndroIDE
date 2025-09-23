@@ -32,7 +32,7 @@
 
 <p> </p>
 
-# Download `JDK` & `SDK` & `NDK` from here:
+# Download `JDK`&`SDK`&`NDK` from here:
 - [JDK](https://github.com/kkgit2008/AndroIDE/releases/tag/JDK)
 - [SDK](https://github.com/kkgit2008/AndroIDE/releases/tag/SDK)
 - [NDK](https://github.com/kkgit2008/AndroIDE/releases/tag/NDK)
