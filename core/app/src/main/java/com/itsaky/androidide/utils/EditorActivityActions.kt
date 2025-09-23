@@ -65,14 +65,14 @@ class EditorActivityActions {
       var order = 0
 
       // Toolbar actions
-      registry.registerAction(UndoAction(context, order++))
-      registry.registerAction(RedoAction(context, order++))
+      registry.registerAction(ProjectSyncAction(context, order++))
       registry.registerAction(QuickRunWithCancellationAction(context, order++))
       registry.registerAction(RunTasksAction(context, order++))
+      registry.registerAction(UndoAction(context, order++))
+      registry.registerAction(RedoAction(context, order++))
       registry.registerAction(SaveFileAction(context, order++))
       registry.registerAction(PreviewLayoutAction(context, order++))
       registry.registerAction(FindActionMenu(context, order++))
-      registry.registerAction(ProjectSyncAction(context, order++))
       registry.registerAction(ReloadColorSchemesAction(context, order++))
       registry.registerAction(DisconnectLogSendersAction(context, order++))
       registry.registerAction(LaunchAppAction(context, order++))
