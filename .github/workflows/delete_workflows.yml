@@ -7,7 +7,7 @@ on:
         required: true
         default: "0"
       minimum_runs:
-        description: 'The minimum runs to keep for each workflow.'
+        description: 'Minimum runs to keep for each workflow.'
         required: true
         default: "0"
 
