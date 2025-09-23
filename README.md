@@ -120,7 +120,7 @@
 ## Installation
 
 > _Please install AndroIDE from trusted sources only i.e._
-> - [_GitHub Releases_](https://github.com/kkgit2008/AndroIDE/releases/latest)
+> - [_GitHub Releases_](https://github.com/kkgit2008/AndroIDE/releases)
 > - [_Documents_](https://androidide.com)
 
 
