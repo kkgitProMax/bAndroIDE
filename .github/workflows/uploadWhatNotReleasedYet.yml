@@ -1,8 +1,8 @@
 name: Upload Beta Pre Release
 
 on:
-  workflow_dispatch: {}
   ### 仅手动触发
+  workflow_dispatch: {}
 
 env:
 
@@ -13,12 +13,12 @@ env:
   BUILD_JAVA_DIST: 'adopt'
 
   APK_OUTPUT_PATH: 'core/app/build/outputs/apk/release'
-  #APK_OUTPUT_FILE: 'app-arm64-v8a-release.apk'
+  APK_OUTPUT_FILE: 'app-arm64-v8a-release.apk'
   ARTIFACT_DIR: './release-artifacts'
-  #INFO_FILE: './RELEASE_INFO'
+  INFO_FILE: './RELEASE_INFO'
 
-  BETA_TAG: 'HaveNotReleasedYet'
   ### 固定的标签名称
+  BETA_TAG: 'HaveNotReleasedYet'
 
 jobs:
   build-beta-pre:
