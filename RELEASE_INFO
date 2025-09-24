@@ -24,7 +24,7 @@ NOTES=
 
 https://github.com/user-attachments/assets/c8b54c68-3f0f-4629-9b6b-d902e2592169
 
-- 5.显示所有动作菜单，动作菜单不会再跳来跳去导致误点
+- 5.显示所有动作菜单并重新排序，动作菜单不会再跳来跳去导致误点
    - All action menus are now displayed and will no longer jump around, preventing accidental clicks
 
 - 4.修复了一个引起程序崩溃的漏洞 (来自 DesignerTextureView) [#5](https://github.com/kkgit2008/AndroIDE/discussions/5)
