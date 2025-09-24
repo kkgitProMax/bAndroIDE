@@ -63,19 +63,19 @@
 
 
 <p align="center">
-  <a href="https://github.com/AndroidIDEOfficial/AndroidIDE"><img src="./images/icon.png" alt="AndroidIDE" width="80" height="80"/></a>
+  <a href="https://github.com/AndroidIDEOfficial/AndroidIDE"><img src="./images/icon.png" alt="AndroIDE" width="80" height="80"/></a>
 </p>
 
-<h2 align="center"><b>AndroidIDE</b></h2>
+<h2 align="center"><b>AndroIDE</b></h2>
 <p align="center">
   An IDE to develop real, Gradle-based Android applications on Android devices.
 <p><br>
 
 <p align="center">
 <!-- Latest release -->
-<img src="https://img.shields.io/github/v/release/AndroidIDEOfficial/AndroidIDE?include_prereleases&amp;label=latest%20release" alt="Latest release">
+<img src="https://img.shields.io/github/v/release/kkgit2008/AndroIDE?include_prereleases&amp;label=latest%20release" alt="Latest release">
 <!-- Build and test -->
-<img src="https://github.com/AndroidIDEOfficial/AndroidIDE/actions/workflows/build.yml/badge.svg" alt="Builds and tests">
+<img src="https://github.com/kkgit2008/AndroIDE/actions/workflows/build.yml/badge.svg" alt="Builds and tests">
 <!-- CodeFactor -->
 <img src="https://www.codefactor.io/repository/github/androidideofficial/androidide/badge/main" alt="CodeFactor">
 <!-- Crowdin -->
@@ -88,9 +88,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/AndroidIDEOfficial/AndroidIDE/issues/new?labels=bug&template=BUG.yml&title=%5BBug%5D%3A+">Report a bug</a> &nbsp; &#8226; &nbsp;
-  <a href="https://github.com/AndroidIDEOfficial/AndroidIDE/issues/new?labels=feature&template=FEATURE.yml&title=%5BFeature%5D%3A+">Request a feature</a> &nbsp; &#8226; &nbsp;
-  <a href="https://t.me/androidide_discussions">Join us on Telegram</a>
+  <a href="https://github.com/kkgit2008/AndroIDE/issues/new?labels=feature&template=FEATURE.yml&title=%5BFeature%5D%3A+">Request a feature</a> &nbsp; &#8226; &nbsp;
 </p>
 
 
@@ -172,18 +170,18 @@ Thanks to all the developers who have contributed to this project.
 ## License
 
 ```
-AndroidIDE is free software: you can redistribute it and/or modify
+AndroIDE is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-AndroidIDE is distributed in the hope that it will be useful,
+AndroIDE is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with AndroidIDE.  If not, see <https://www.gnu.org/licenses/>.
+along with AndroIDE.  If not, see <https://www.gnu.org/licenses/>.
 ```
 
 Any violations to the license can be reported either by opening an issue or writing a mail to us
