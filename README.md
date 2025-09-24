@@ -12,7 +12,7 @@
 * Or, to build all architectures from 
 <a href="./composite-builds/build-logic/plugins/src/main/java/com/itsaky/androidide/plugins/conf/AndroidModuleConf.kt"> here </a> at line 48
 
-> BTW, app version name depends on the latest tag, 'pre-release' tag is not included.
+> BTW, app version name depends on the latest tag ('pre-release' tag is not included)
 
 
 <p> </p>
@@ -47,7 +47,7 @@
 
 - `Android API Lever` must be `34` or lower
 
-- If you want to use SDK 35 (`platforms-android-35`) in your project, click [here](https://github.com/kkgit2008/AndroIDE-SDK-35-DOCS)
+- If you want to use Android API Lever 35 (or `platforms-android-35`) in your project, click [here](https://github.com/kkgit2008/AndroIDE-SDK-35-DOCS)
 
 
 
