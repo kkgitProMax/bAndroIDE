@@ -46,6 +46,7 @@
 
 - `Android API Lever` must be `34` or lower
 
+- If you want to use SDK 35 (`platforms-android-35`) in your project, click [here](https://github.com/kkgit2008/AndroidIDE-SDK-35-DOCS/release)
 
 
 
