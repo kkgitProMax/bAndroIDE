@@ -1,12 +1,12 @@
 name: Upload Beta Pre Release
 
 on:
-  ### 仅手动触发
+  ### Only trigger manually
   workflow_dispatch: {}
 
 env:
 
-  ### 必须使用的参数，否则版本名称会很长
+  ### Must use this parameter, otherwise the version name will be very long
   ReleaseAndroIDE: true
 
   BUILD_JAVA_VERSION: '17'
@@ -17,56 +17,56 @@ env:
   ARTIFACT_DIR: './release-artifacts'
   INFO_FILE: './RELEASE_INFO'
 
-  ### 固定的标签名称
+  ### Fixed tag name
   BETA_TAG: 'HaveNotReleasedYet'
 
 jobs:
   build-beta-pre:
-    name: Build betaPre release
+    name: Build BetaPre Release
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel previous runs
+      - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.12.1
         with:
           access_token: ${{ github.token }}
 
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
           fetch-depth: 0
 
-      - name: Set short SHA and date
+      - name: Set Short SHA And Date
         id: set_vars
         run: |
-          ### 提取7位短校验值
+          ### Extract 7-character short commit hash
           echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
-          ### 生成yymmdd格式的日期字符串
+          ### Generate date string in yymmdd format
           echo "current_date=$(date +'%y%m%d')" >> $GITHUB_OUTPUT
 
-      - name: Read release information from file
+      - name: Read Release Information From File
         id: release_info
         run: |
-          ### 验证RELEASE_INFO文件是否存在
+          ### Verify RELEASE_INFO file exists
           if [ ! -f "${{ env.INFO_FILE }}" ]; then
             echo "RELEASE_INFO file not found!"
             exit 1
           fi
 
-          ### 从RELEASE_INFO提取TAG_NAME值
+          ### Extract TAG_NAME value from RELEASE_INFO
           TAG_NAME=$(grep '^TAG_NAME=' ${{ env.INFO_FILE }} | cut -d'=' -f2- | tr -d '[:space:]')
           if [ -z "$TAG_NAME" ]; then
             echo "TAG_NAME not specified in RELEASE_INFO"
             exit 1
           fi
 
-          ### 将提取的TAG_NAME输出到环境变量
+          ### Output the extracted TAG_NAME to environment variable
           echo "my_tag=$TAG_NAME" >> $GITHUB_OUTPUT
 
-      - name: Check if tag exists
+      - name: Check If Tag Exists
         id: check_beta_tag
         run: |
-          ### 检查标签是否已存在
+          ### Check if tag already exists
           if git rev-parse "${{ env.BETA_TAG }}" >/dev/null 2>&1; then
             echo "tag_exists=true" >> $GITHUB_OUTPUT
             echo "Tag ${{ env.BETA_TAG }} already exists"
@@ -75,33 +75,33 @@ jobs:
             echo "Tag ${{ env.BETA_TAG }} will be created"
           fi
 
-      ### 仅标签不存在才创建
-      - name: Create and push tag (if not exists)
+      ### Create tag only if it doesn't exist
+      - name: Create And Push Tag (if not exists)
         if: ${{ steps.check_beta_tag.outputs.tag_exists == 'false' }}
         run: |
-          ### 配置Git用户信息
+          ### Configure Git user information
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           
-          ### 创建并推送标签
+          ### Create and push tag
           git tag -a ${{ env.BETA_TAG }} -m "Beta pre-release tag"
           git push origin ${{ env.BETA_TAG }}
           echo "Created and pushed tag: ${{ env.BETA_TAG }}"
           
-          ### 刷新本地标签信息
+          ### Refresh local tag information
           git fetch --tags
 
-      - name: Set up JDK 17
+      - name: Set Up JDK
         uses: actions/setup-java@v4
         with:
           java-version: ${{ env.BUILD_JAVA_VERSION }}
           distribution: ${{ env.BUILD_JAVA_DIST }}
           cache: 'gradle'
 
-      - name: Make gradlew executable
+      - name: Make Gradlew Executable
         run: chmod +x ./gradlew
 
-      - name: Restore Gradle cache
+      - name: Restore Gradle Cache
         uses: actions/cache@v4
         with:
           path: |
@@ -115,56 +115,56 @@ jobs:
         run: ./gradlew :core:app:assembleRelease
         continue-on-error: false
 
-      - name: Show APK paths
+      - name: Show APK Path
         run: |
-          ### 显示APK输出目录的内容
-          echo ">>APK files:"
+          ### Display contents of APK output directory
+          echo ">>>APK path:"
           ls -la ${{ env.APK_OUTPUT_PATH }}
 
-      - name: Check APK exists
+      - name: Check If APK Exists
         run: |
-          ### 检查APK文件是否存在
+          ### Check if APK file exists
           if [ ! -f "${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE }}" ]; then
             echo ">>APK file not found!"
             exit 1
           fi
 
-      - name: Prepare release artifacts
+      - name: Prepare Release Artifacts
         run: |
-          ### 构建Artifact名称: apk-arm64V8-myTAG-time-shortSHA
+          ### Build artifact name: apk-arm64V8-myTAG-time-shortSHA
           ARTIFACT_NAME="${{ steps.set_vars.outputs.current_date }}-${{ steps.set_vars.outputs.short_sha }}-AndroIDE-arm64v8a-${{ steps.release_info.outputs.my_tag }}.apk"
           
-          ### 创建 artifacts 目录并复制文件
+          ### Create artifacts directory and copy files
           mkdir -p ${{ env.ARTIFACT_DIR }}
           cp ${{ env.APK_OUTPUT_PATH }}/${{ env.APK_OUTPUT_FILE }} ${{ env.ARTIFACT_DIR }}/$ARTIFACT_NAME
           
-          ### 生成SHA256校验文件
+          ### Generate SHA256 checksum file
           sha256sum ${{ env.ARTIFACT_DIR }}/$ARTIFACT_NAME > ${{ env.ARTIFACT_DIR }}/$ARTIFACT_NAME.sha256
           
-          ### 显示准备好的 artifacts
-          echo ">>Prepared artifacts:"
+          ### Display prepared artifacts
+          echo ">>>Prepared artifacts:"
           ls -la ${{ env.ARTIFACT_DIR }}
           
-          ### 保存Artifact名称供后续步骤使用
+          ### Save artifact name for use in subsequent steps
           echo "artifact_name=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
         id: prepare_artifact
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          ### 使用固定的发布标签
+          ### Use fixed release tag
           tag_name: ${{ env.BETA_TAG }}
-          ### 标题与标签相同
+          ### Title same as tag
           name: ${{ env.BETA_TAG }}
-          ### 使用固定的发布说明
+          ### Use fixed release description
           body: "The APKs have not been released yet."
-          ### 上传构建好的 artifacts
+          ### Upload built artifacts
           files: ${{ env.ARTIFACT_DIR }}/*
-          ### 是否直接发布，不设为草稿
+          ### Whether to set it as a draft 
+          ### instead of releasing it directly
           draft: false
-          ### 是否标记为预发布
+          ### Whether to mark as pre-release
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
 
