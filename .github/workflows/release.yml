@@ -4,10 +4,10 @@ on:
 #  push:
 #    branches: [ main, master ]
 #    paths:
-#      ### 只有RELEASE_INFO文件变更时触发
+#      ### Trigger only when the RELEASE_INFO file changes
 #      - 'RELEASE_INFO'
   workflow_dispatch: {}
-  ### 只能手动触发
+  ### Manual trigger only
 
 env:
   BUILD_JAVA_VERSION: '17'
@@ -17,7 +17,8 @@ env:
   INFO_FILE: './RELEASE_INFO'
 
   APK_OUTPUT_PATH: './core/app/build/outputs/apk/release'
-  ### 无后缀，方便后续步骤改名
+  
+  ### No file extension, for easy renaming in subsequent steps
   DEFAULT_OUTPUT_FILE1: 'app-arm64-v8a-release'
   RENAME_OUTPUT_FILE2: 'AndroIDE_arm64-v8a_release'
 
@@ -38,7 +39,7 @@ jobs:
           submodules: 'recursive'
           fetch-depth: 0
 
-      ### 提前获取short_sha，用于替换RELEASE_INFO中的占位符
+      ### Retrieve short SHA in advance for replacing placeholders in RELEASE_INFO
       - name: Set Short SHA
         id: set_sha
         run: echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
@@ -46,54 +47,54 @@ jobs:
       - name: Read And Process Release Information
         id: release_info
         run: |
-          ### 验证RELEASE_INFO文件存在
+          ### Verify that the RELEASE_INFO file exists
           if [ ! -f "${{ env.INFO_FILE }}" ]; then
             echo "RELEASE_INFO file not found!"
             exit 1
           fi
 
-          ### 临时文件用于存储处理后的内容
+          ### Create a temporary file to store processed content
           TEMP_FILE=$(mktemp)
           
-          ### 替换文件中所有的shortSHA为实际的short_sha
+          ### Replace all instances of 'shortSHA' in the file with the actual short_sha
           sed "s/shortSHA/${{ steps.set_sha.outputs.short_sha }}/g" ${{ env.INFO_FILE }} > $TEMP_FILE
 
-          ### 提取版本号
+          ### Extract version tag
           TAG_NAME=$(grep '^TAG_NAME=' $TEMP_FILE | cut -d'=' -f2- | tr -d '[:space:]')
           if [ -z "$TAG_NAME" ]; then
             echo "TAG_NAME not specified in RELEASE_INFO"
             exit 1
           fi
 
-          ### 提取标题
+          ### Extract title
           if [ -z "$TITLE" ]; then
             TITLE="${TAG_NAME} ${{ steps.set_sha.outputs.short_sha }}"
           else
-            ### 去除首尾空格
+            ### Remove leading and trailing spaces
             TITLE=$(echo "$TITLE" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
           fi
 
-          ### 提取目标分支
+          ### Extract target branch
           BRANCH=$(grep '^BRANCH=' $TEMP_FILE | cut -d'=' -f2- | tr -d '[:space:]')
           if [ -z "$BRANCH" ]; then
             echo "BRANCH not specified in RELEASE_INFO"
             exit 1
           fi
 
-          ### 提取预发布标记（默认false）
+          ### Extract prerelease flag (default to false)
           PRERELEASE=$(grep '^PRERELEASE=' $TEMP_FILE | cut -d'=' -f2- | tr -d '[:space:]')
           if [ -z "$PRERELEASE" ]; then
             PRERELEASE="false"
           fi
 
-          ### 提取版本说明（从NOTES=开始到文件结束）
+          ### Extract release notes (from the line starting with "NOTES=" to the end of the file)
           NOTES=$(awk 'BEGIN {found=0} /^NOTES=/{found=1; sub(/^NOTES=/, ""); print; next} found' $TEMP_FILE)
           if [ -z "$NOTES" ]; then
             echo "NOTES not specified in RELEASE_INFO"
             exit 1
           fi
 
-          ### 输出到GitHub环境变量
+          ### Output to GitHub environment variables
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "title=$TITLE" >> $GITHUB_OUTPUT
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
@@ -102,14 +103,14 @@ jobs:
           echo "$NOTES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-          ### 显示读取的信息
+          ### Display the read information
           echo "Tag_name: $TAG_NAME"
           echo "Title: $TITLE"
           echo "Target branch: $BRANCH"
           echo "Pre-release: $PRERELEASE"
           echo "Notes length: $(echo -n "$NOTES" | wc -c) characters"
           
-          ### 清理临时文件
+          ### Clean up temporary file
           rm -f $TEMP_FILE
 
       - name: Check Current Branch Matches Target Branch
@@ -135,7 +136,7 @@ jobs:
             echo "Tag $TAG will be created"
           fi
 
-      ### 先创建并推送标签（仅当标签不存在时执行）
+      ### First create and push the tag (execute only if the tag does not exist)
       - name: Create And Push Tag
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
@@ -146,10 +147,10 @@ jobs:
           git push origin $TAG
           echo "Created and pushed tag: $TAG"
           
-          ### 刷新本地标签信息，确保后续步骤能看到新创建的标签
+          ### Refresh local tag information to ensure subsequent steps can see the newly created tag
           git fetch --tags
 
-      ### 以下步骤添加了条件判断，只有当tag不存在时才执行
+      ### The following steps include conditional checks and will only execute if the tag does not exist
       - name: Set Up JDK 17
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         uses: actions/setup-java@v4
@@ -191,7 +192,7 @@ jobs:
       - name: Show APK Path
         if: ${{ steps.check_tag.outputs.tag_exists == 'false' }}
         run: |
-            echo ">>APK path and sub:"
+            echo ">>>APK path and subdirectories:"
             ls -laR ${{ env.APK_OUTPUT_PATH }}
 
       - name: Prepare Artifacts-APK
@@ -214,11 +215,11 @@ jobs:
           name: ${{ steps.release_info.outputs.title }}
           body: ${{ steps.release_info.outputs.notes }}
           files: ${{ env.ARTIFACT_DIR }}/*
-          ### 是否直接公开，而不是保存为草稿
+          ### Whether to save as a draft instead of publishing directly
           draft: false
-          ### 是否设置为预发布版本
+          ### Whether to mark as a prerelease version
           prerelease: ${{ steps.release_info.outputs.prerelease }}
-          ### 只有非预发布版本才设置为latest
+          ### Only set non-prerelease versions as "latest"
           make_latest: ${{ steps.release_info.outputs.prerelease == 'false' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
