@@ -14,7 +14,7 @@ BRANCH=main
 NOTES=
 # What's Changed:
 - 8.修复了“断开日志发送器”经常无法点击的问题(如果还是无法点击或者logsender页面不再输出日志，需重启IDE，这不是漏洞)
-   - Nothing here.
+   - Fixed the issue where the "Disconnect log senders" option was often unclickable. (If it is still unclickable or the "App log" page stops outputting logs, please restart the IDE. This is not a bug.)
 
 - 7.修复了一个出现概率非常高的引起崩溃的漏洞 [#13](https://github.com/kkgit2008/AndroIDE/discussions/13)
    - Fixed a high-probability crash bug [#13](https://github.com/kkgit2008/AndroIDE/discussions/13)
