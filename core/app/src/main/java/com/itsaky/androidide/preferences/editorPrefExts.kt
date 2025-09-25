@@ -74,7 +74,7 @@ private class CommonConfigurations(
   init {
     addPreference(TextSize())
     addPreference(TabSize())
-    addPreference(ColorSchemePreference())
+    //addPreference(ColorSchemePreference())
     addPreference(NonPrintablePaintingFlags())
     addPreference(FontLigatures())
     addPreference(UseCustomFont())
