@@ -2,10 +2,6 @@ name: Upload Release
 
 on:
   push:
-    #branches: [ "master", "main" ]
-    branches: [ "main" ]
-    paths: 
-      - 'RELEASE_INFO'
   workflow_dispatch: {}
 
 # Cancel old runs
