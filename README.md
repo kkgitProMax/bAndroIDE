@@ -110,7 +110,8 @@
     - [x] Layout inflater
     - [x] Resolve resource references
     - [x] Auto-complete resource values when user edits attributes using the attribute editor
-    - [x] Drag & Drop
+    - [x] Drag
+    - [ ] & Drop
     - [x] Visual attribute editor
     - [x] Android Widgets
 - [ ] String Translator
