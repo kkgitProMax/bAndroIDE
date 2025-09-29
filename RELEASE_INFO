@@ -11,7 +11,7 @@
 ## ---------------------------------------------------------------------------
 ## Release title (default "VER_NAME shortSHA")
 ## ---------------------------------------------------------------------------
-#TITLE=v2.7.1-beta2 shortSHA
+TITLE=v2.7.1-beta2
 
 
 ## ---------------------------------------------------------------------------
@@ -19,7 +19,7 @@
 ## ---------------------------------------------------------------------------
 ## Pre-release flag (false=stable & latest, true=beta/gray) (default "true")
 ## ---------------------------------------------------------------------------
-#PRERELEASE=true
+PRERELEASE=false
 
 
 ## ---------------------------------------------------------------------------
@@ -51,6 +51,10 @@ NOTES=
 <details>
 <summary><b>🇨🇳 中文版变更日志（点击展开）</b></summary>
 
+- ❗修复 首次启动时，手动安装SDK出现的GPG错误
+- 优化GitHub工作流，更方便使用，效率更高
+- 使用新的版本控制，无需再依赖固定分支或标签
+- 移除无效选项菜单及无用文件
 - 修复「断开日志发送器」经常无法点击的问题（若仍无效请重启 IDE，非 bug）
 - 修复高概率崩溃 bug [#13](https://github.com/kkgit2008/AndroIDE/discussions/13)  
 - 视频演示：操作步骤见下方 ⬇️  
@@ -66,6 +70,10 @@ NOTES=
 <details>
 <summary><b>🌏 English Changelog (Click to expand)</b></summary>
 
+- ❗Fixed GPG errors when manually installing the SDK on first launch  
+- Optimized the GitHub workflow for greater convenience and efficiency  
+- Adopted a new versioning scheme that eliminates the need for fixed branches or tags  
+- Removed invalid option menus and unused files
 - Fixed "Disconnect log senders" often unclickable (restart IDE if still failing; not a bug)
 - Fixed high-probability crash [#13](https://github.com/kkgit2008/AndroIDE/discussions/13)
 - Video demo: see link above ⬆️
@@ -78,5 +86,4 @@ NOTES=
 </details>
 
 <!-- These Issue/PR will be closed -->
-Fixed #13
-Fixed #5
+<!-- Fixed #0 -->
