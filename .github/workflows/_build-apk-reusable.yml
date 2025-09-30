@@ -254,7 +254,7 @@ jobs:
         run: |
           mkdir -p ${{ env.ARTIFACT_OUTPUT_DIR }}${{ inputs.abi_type }}
           SRC=${{ env.APK_OUTPUT_DIR }}${{ inputs.build_type }}/app-${{ inputs.abi_type }}-${{ inputs.build_type }}.apk
-          DST=${{ env.ARTIFACT_OUTPUT_DIR }}${{ inputs.abi_type }}/AndroIDE-${{ inputs.abi_type }}${{ steps.info.outputs.ver_suffix }}.apk
+          DST=${{ env.ARTIFACT_OUTPUT_DIR }}${{ inputs.abi_type }}/AndroIDE-${{ inputs.abi_type }}-${{ steps.info.outputs.ver_name }}${{ steps.info.outputs.ver_suffix }}.apk
           cp "$SRC" "$DST"
           sha256sum "$DST" > "$DST.sha256"
 
@@ -265,7 +265,7 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AndroIDE-${{ inputs.abi_type }}${{ steps.info.outputs.ver_suffix }}
+          name: AndroIDE-${{ inputs.abi_type }}-${{ steps.info.outputs.ver_name }}${{ steps.info.outputs.ver_suffix }}
           path: ${{ env.ARTIFACT_OUTPUT_DIR }}${{ inputs.abi_type }}/*
 
       - name: Upload Mapping (release only, not debug)
