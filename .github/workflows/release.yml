@@ -9,77 +9,136 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
-  # ---------- 1. Create git tag ----------
-  create_tag:
-    runs-on: ubuntu-latest
+  # ---------- 0. Parse $INFO_FILE And Check ----------
+  check:
+    #runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     outputs:
-      ver_name: ${{ steps.info.outputs.ver_name }}
+      final_tag:  ${{ steps.final_tag.outputs.final_tag }}
+      ver_name:   ${{ steps.info.outputs.ver_name }}
+      short_sha:  ${{ steps.sha.outputs.short_sha }}
+      title:      ${{ steps.info.outputs.title }}
+      branch:     ${{ steps.info.outputs.branch }}
+      prerelease: ${{ steps.info.outputs.prerelease }}
+      notes:      ${{ steps.info.outputs.notes }}
     steps:
+    
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          # get entire commit history to compare tag
           fetch-depth: 0
 
-      - name: Parse RELEASE_INFO
+      - name: Set Short SHA
+        id: sha
+        run: echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+
+      - name: Parse $INFO_FILE
         id: info
         run: |
-          set -euxo pipefail
+          set -euo pipefail
           INFO_FILE=RELEASE_INFO
-          if [ ! -s "$INFO_FILE" ]; then
-            echo "$INFO_FILE not found or empty"
-            exit 1
-          fi
-          VER=$(grep '^VER_NAME=' "$INFO_FILE" | cut -d'=' -f2- | tr -d '[:space:]')
-          echo "ver_name=$VER" >> $GITHUB_OUTPUT
+          [ -s "$INFO_FILE" ] || { echo "$INFO_FILE not found or empty"; exit 1; }
 
-      - name: Check Branch vs RELEASE_INFO
+          CONTENT=$(sed "s/shortSHA/${GITHUB_SHA::7}/g" "$INFO_FILE")
+
+          VER_NAME=$(echo "$CONTENT" | grep '^VER_NAME=' | cut -d= -f2- | tr -d '[:space:]')
+          echo "ver_name=$VER_NAME" >> $GITHUB_OUTPUT
+
+          TITLE=$(echo "$CONTENT" | grep '^TITLE=' | cut -d= -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' || true)
+          [ -z "$TITLE" ] && TITLE="${VER_NAME} ${GITHUB_SHA::7}"
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+
+          BRANCH=$(echo "$CONTENT" | grep '^BRANCH=' | cut -d= -f2- | tr -d '[:space:]')
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+
+          PRERELEASE=$(echo "$CONTENT" | grep '^PRERELEASE=' | cut -d= -f2- | tr -d '[:space:]' || true)
+          [ -z "$PRERELEASE" ] && PRERELEASE="true"
+          echo "prerelease=$PRERELEASE" >> $GITHUB_OUTPUT
+
+          NOTES=$(awk 'BEGIN{f=0} /^NOTES=/{f=1; sub(/^NOTES=/,""); print; next} f' <<< "$CONTENT" || true)
+          [ -z "$NOTES" ] && { echo "NOTES missing or empty"; exit 1; }
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES"     >> $GITHUB_OUTPUT
+          echo "EOF"        >> $GITHUB_OUTPUT
+
+      - name: Check branch
         run: |
-          BRANCH=$(grep '^BRANCH=' RELEASE_INFO | cut -d'=' -f2- | tr -d '[:space:]')
+          BRANCH="${{ steps.info.outputs.branch }}"
           CURRENT=$(git rev-parse --abbrev-ref HEAD)
-          if [ "$CURRENT" != "$BRANCH" ]; then
-            echo "Release configured for '$BRANCH', but current is '$CURRENT'"
-            exit 1
+          [ "$CURRENT" = "$BRANCH" ] || { echo "Release configured for '$BRANCH', but current is '$CURRENT'"; exit 1; }
+
+      - name: Compute final tag name
+        id: final_tag
+        run: |
+          RAW_TAG="${{ steps.info.outputs.ver_name }}"
+          PRERELEASE="${{ steps.info.outputs.prerelease }}"
+          SHORT_SHA="${{ steps.sha.outputs.short_sha }}"
+          TAG_SUFFIX="-$SHORT_SHA"
+          if [ "$PRERELEASE" = "true" ]; then
+            echo "final_tag=${RAW_TAG}${TAG_SUFFIX}" >> $GITHUB_OUTPUT
+          else
+            echo "final_tag=${RAW_TAG}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Check If Tag Exist
+      - name: Check Tag Exist
         run: |
-          TAG="${{ steps.info.outputs.ver_name }}"
+          TAG="${{ steps.final_tag.outputs.final_tag }}"
+          
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             echo "Tag $TAG already exists"
             exit 1
           fi
 
-      - name: Create & Push Tag
-        run: |
-          TAG="${{ steps.info.outputs.ver_name }}"
-          TITLE=$(grep '^TITLE=' RELEASE_INFO | cut -d'=' -f2- | sed 's/shortSHA/'${GITHUB_SHA::7}'/;s/^[[:space:]]*//;s/[[:space:]]*$//' || true)
-          [ -z "$TITLE" ] && TITLE="$TAG ${GITHUB_SHA::7}"
-          git config user.name  "github-actions"
-          git config user.email "actions@github.com"
-          git tag -a "$TAG" -m "$TITLE"
-          git push origin "$TAG"
-
-  # ---------- 2. Build all ABIs ----------
+  # ---------- 1. Build all ABIs ----------
   build_all_abi:
-    needs: create_tag
+    needs: check
     strategy:
       fail-fast: false
       matrix:
+        abi_type: [arm64-v8a]
         #abi_type: ['arm64-v8a', 'armeabi-v7a', 'x86_64']
-        abi_type: ['arm64-v8a']
     uses: ./.github/workflows/_build-apk-reusable.yml
     with:
       abi_type:   ${{ matrix.abi_type }}
       build_type: release
       override_IsPublish: true
+      # pass params from 'check' job
+      override_ver_name:   ${{ needs.check.outputs.ver_name }}
+      override_short_sha:  ${{ needs.check.outputs.short_sha }}
+      override_title:      ${{ needs.check.outputs.title }}
+      override_branch:     ${{ needs.check.outputs.branch }}
+      override_prerelease: ${{ needs.check.outputs.prerelease }}
+    secrets: inherit
 
-  # ---------- 3. Get all artifacts and create gitHub release ----------
-  publish_release:
-    needs: [create_tag, build_all_abi]
-    runs-on: ubuntu-latest
+  # ---------- 2. Create git tag ----------
+  create_tag:
+    needs: [check, build_all_abi]
+    #runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # just need the latest commit history
+          fetch-depth: 1
+
+      - name: Create & Push Tag
+        run: |
+          TAG="${{ needs.check.outputs.final_tag }}"
+          MSG="$TAG"
+          git config user.name  "github-actions"
+          git config user.email "actions@github.com"
+          git tag -a "$TAG" -m "$MSG"
+          git push origin "$TAG"
+
+  # ---------- 3. Create GitHub Release ----------
+  publish_release:
+    needs: [check, build_all_abi, create_tag]
+    #runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    steps:
+    
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -93,31 +152,18 @@ jobs:
           merge-multiple: true
           path: release_assets/
 
-      - name: Read Release Notes
-        id: notes
-        run: |
-          NOTES=$(awk 'BEGIN{f=0} /^NOTES=/{f=1; sub(/^NOTES=/,""); print; next} f' RELEASE_INFO)
-          echo "notes<<EOF" >> $GITHUB_OUTPUT
-          echo "$NOTES"     >> $GITHUB_OUTPUT
-          echo "EOF"        >> $GITHUB_OUTPUT
-
-      - name: Extract Prerelease Flag
-        id: flag
-        run: |
-          PRERELEASE=$(grep '^PRERELEASE=' RELEASE_INFO | cut -d'=' -f2- | tr -d '[:space:]' || true)
-          [ -z "$PRERELEASE" ] && PRERELEASE="true"
-          echo "prerelease=$PRERELEASE" >> $GITHUB_OUTPUT
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ needs.create_tag.outputs.ver_name }}
-          name:     ${{ needs.create_tag.outputs.ver_name }}
-          body:     ${{ steps.notes.outputs.notes }}
+          # release tag
+          tag_name: ${{ needs.check.outputs.final_tag }}
+          # release title
+          name:     ${{ needs.check.outputs.title }}
+          body:     ${{ needs.check.outputs.notes }}
           files:    release_assets/*
           draft:    false
-          prerelease: ${{ steps.flag.outputs.prerelease == 'true' }}
-          make_latest: ${{ steps.flag.outputs.prerelease != 'true' }}
+          prerelease: ${{ needs.check.outputs.prerelease == 'true' }}
+          make_latest: ${{ needs.check.outputs.prerelease != 'true' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
