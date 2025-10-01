@@ -364,7 +364,7 @@ inline fun <T : Enum<*>> enumParameter(crossinline block: EnumParameterBuilder<T
 inline fun projectNameParameter(crossinline configure: StringParameterBuilder.() -> Unit = {}) =
   stringParameter {
     name = string.project_app_name
-    default = "My Application"
+    default = "CD"
     startIcon = { R.drawable.ic_android }
     constraints = listOf(NONEMPTY)
 
@@ -374,7 +374,7 @@ inline fun projectNameParameter(crossinline configure: StringParameterBuilder.()
 inline fun packageNameParameter(crossinline configure: StringParameterBuilder.() -> Unit = {}) =
   stringParameter {
     name = string.package_name
-    default = "com.ide.app"
+    default = "a.b.c"
     startIcon = { R.drawable.ic_package }
     constraints = listOf(NONEMPTY, PACKAGE)
 
