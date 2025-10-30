@@ -51,6 +51,7 @@ NOTES=
 <details>
 <summary><b>🇨🇳 中文版变更日志（点击展开）</b></summary>
 
+- 默认不开启统计数据收集
 - ❗修复 首次启动时，手动安装SDK出现的GPG错误
 - 优化GitHub工作流，更方便使用，效率更高
 - 使用新的版本控制，无需再依赖固定分支或标签
@@ -70,6 +71,7 @@ NOTES=
 <details>
 <summary><b>🌏 English Changelog (Click to expand)</b></summary>
 
+- Set "Stats collection" disabled as default
 - ❗Fixed GPG errors when manually installing the SDK on first launch  
 - Optimized the GitHub workflow for greater convenience and efficiency  
 - Adopted a new versioning scheme that eliminates the need for fixed branches or tags  
